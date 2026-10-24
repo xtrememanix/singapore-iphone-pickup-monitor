@@ -129,13 +129,13 @@ def main():
 
         target = None
         for store in stores:
-actual_name = str(store.get("storeName", "")).strip()
-normalised_actual = actual_name.removeprefix("Apple ").casefold()
-normalised_expected = expected_name.removeprefix("Apple ").casefold()
+            actual_name = str(store.get("storeName", "")).strip()
+            normalised_actual = actual_name.removeprefix("Apple ").casefold()
+            normalised_expected = expected_name.removeprefix("Apple ").casefold()
 
-if normalised_actual == normalised_expected:
-    target = store
-    break
+            if normalised_actual == normalised_expected:
+                target = store
+                break
 
         if target is None:
             # Fail safely: don't announce "out of stock" if the requested store
