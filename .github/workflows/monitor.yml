@@ -1,0 +1,50 @@
+name: Singapore iPhone Duo pickup monitor
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Send a Telegram test or run a stock check"
+        required: true
+        default: test
+        type: choice
+        options:
+          - test
+          - check
+
+permissions:
+  contents: write
+
+concurrency:
+  group: singapore-iphone-pickup-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run monitor
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          STATE_FILE: state.json
+        run: |
+          MODE="${{ inputs.mode || 'check' }}"
+          python3 monitor.py "$MODE"
+
+      - name: Save alert state
+        if: success()
+        run: |
+          if ! git diff --quiet -- state.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add state.json
+            git commit -m "Update pickup availability state"
+            git push
+          fi
