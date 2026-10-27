@@ -11,10 +11,10 @@
   "Apple Marina Bay Sands|MK2G4X/A": false,
   "Apple Marina Bay Sands|MK2H4X/A": false,
   "Apple Marina Bay Sands|MK2J4X/A": false,
-  "Apple Orchard Road|MK2D4X/A": false,
-  "Apple Orchard Road|MK2E4X/A": false,
-  "Apple Orchard Road|MK2F4X/A": false,
+  "Apple Orchard Road|MK2D4X/A": true,
+  "Apple Orchard Road|MK2E4X/A": true,
+  "Apple Orchard Road|MK2F4X/A": true,
   "Apple Orchard Road|MK2G4X/A": false,
   "Apple Orchard Road|MK2H4X/A": false,
-  "Apple Orchard Road|MK2J4X/A": false
+  "Apple Orchard Road|MK2J4X/A": true
 }
